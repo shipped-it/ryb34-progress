@@ -1,0 +1,163 @@
+# Open assumptions (/assumptions)
+
+
+
+| Question                                         | What we're assuming now                                                                                                                                                                                                                                                                                           | When we close it                                                                                                                                                            |
+| ------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Are crying and heart rate linked?                | We treat them as two separate signs of the same stress, not as one causing the other. So S3 does not expect one to directly change the other.                                                                                                                                                                     | At Demo 1, on the digital twin: we look at both signals together and check whether they move together more than the model says. If they do, S3 will weigh them accordingly. |
+| How do we drive the motors?                      | S4 sends the two 1 kHz PWM signals (rocking speed and rocking strength) on the motor connections of the board. The cradle setup gives the motors their power.                                                                                                                                                     | First cradle time slot, before Demo 1: we measure the load (must stay above 0.8 A) and the duty (must stay under 90%).                                                      |
+| Can the timers keep up?                          | We build on the fixed PYNQ Z2 board: its UART and I2C for the communication, its general-purpose timers for the 1 kHz PWM signals. We assume the timers can keep both PWM signals at exactly 1 kHz with stable duty, even while the communication code runs.                                                      | First bring-up: we check both signals on the oscilloscope, before Demo 1.                                                                                                   |
+| Do the two measurements arrive at the same time? | Each sensor board cleans up its own signal first: S1 sends a ready BPM value (with trend) at 2 Hz, S2 sends the filtered cry level at 10 Hz. So S3 combines two finished values, not raw waves. The open point: the two values must arrive close enough together for S3 to combine them at 1 decision per second. | COMM-2 test (Section 2.4): we measure how long each signal takes to arrive. S3 writes a timestamp on both values, so if one is late, it shows up on the LCD.                |
+
+
+# Communication (/communication)
+
+
+
+
+
+
+
+
+
+The four PYNQ boards sit in the cradle backbone and exchange heartbeat, crying, decision, and command signals. Two topologies are under evaluation.
+
+## Full system [#full-system]
+
+<img alt="Full system block diagram" src="__img0" />
+
+The cradle sensors (photo detector, mic) feed S1 and S2; S1 and S2 send SIG_HR and SIG_CR to S3; S3 sends SIG_CMD to S4; S4 drives the cradle motors with two 1 kHz PWM signals.
+
+## Option 1: shared UART line [#option-1-shared-uart-line]
+
+<img alt="Option 1: shared UART line" src="__img1" />
+
+Every board has its own TX and RX on the backbone, plus a common ground. UART is point-to-point, so addressing and turn-taking are built on top of it: each board gets a 4-bit address and every frame carries a destination.
+
+## Option 2: I2C link [#option-2-i2c-link]
+
+<img alt="Option 2: I2C link" src="__img2" />
+
+One shared data wire (SDA) and one clock wire (SCL) with a common ground. S3 acts as the master, S1, S2 and S4 as slaves. Addressing is built into the protocol, so no frame header is needed.
+
+
+# Design document (/document)
+
+
+
+
+
+<Callout type="warn" title="Current version: Version 1.4 – Draft Section 2">
+  Section 2 not final
+</Callout>
+
+**RYB_Team34_DesignDocument.pdf**, 17 pages
+
+[Download the PDF](/RYB_Team34_DesignDocument.pdf)
+
+<iframe src="/RYB_Team34_DesignDocument.pdf" title="Rock Your Baby, Design Document v1.4" className="w-full" style="{ height: '820px', border: '1px solid #dcdad2', borderRadius: '6px' }" />
+
+## Versions [#versions]
+
+| Version | Status           |
+| ------- | ---------------- |
+| v1.4    | Sections 1 and 2 |
+
+
+# Overview (/)
+
+
+
+
+
+**Rock your Baby - Team 34**
+
+A controller that reads a baby's heart rate and crying, decides a rocking motion, and drives a cradle. Four PYNQ Z2 boards, one communication backbone, one cradle.
+
+| Field        |                     |
+| ------------ | ------------------- |
+| **Team**     | 34 · 9 members      |
+| **Board**    | PYNQ Z2 (Zynq-7020) |
+| **Document** | v1.4 · Sections 1+2 |
+| **Updated**  | 12 October 2026     |
+
+## Status [#status]
+
+| Status             | What                                | Detail                                             |
+| ------------------ | ----------------------------------- | -------------------------------------------------- |
+| ✅ **Done**         | Sections 1-2 in the design document | Requirements, architecture, communication protocol |
+| 🔶 **In progress** | Section 3 design description        | Per-submodule design, S1-S4                        |
+| ⬜ **Next**         | Board bring-up                      | Hardware time slots, 1 kHz PWM + comm verification |
+
+## The team [#the-team]
+
+| Role          | Who               |
+| ------------- | ----------------- |
+| S1 Heartbeat  | Alex, Artem       |
+| S2 Crying     | Alexandru, Val    |
+| S3 Decision   | JG, Ties          |
+| S4 Motors     | Mika, Lucca, Hugo |
+| Communication | JG, Ties          |
+
+## The system [#the-system]
+
+<img alt="Full system block diagram" src="__img0" />
+
+## Reading this site [#reading-this-site]
+
+* [Submodules](/submodules): the four boards and their job
+* [Communication](/communication): how the boards talk to each other
+* [Open assumptions](/assumptions): what we are still validating
+* [Design document](/document): the PDF
+* [Milestones](/timeline): where we are in the course schedule
+
+
+# Submodules (/submodules)
+
+
+
+
+
+## S1 Heartbeat [#s1-heartbeat]
+
+Extracts heart rate from the LED signal; conditions its own signal before sending.
+
+Status: In design
+
+## S2 Crying [#s2-crying]
+
+Detects and filters cry level from the microphone signal.
+
+Status: In design
+
+## S3 Decision [#s3-decision]
+
+Fuses the two processed values into a (frequency, amplitude) decision; timestamps both inputs so misalignment shows on the LCD.
+
+Status: In design
+
+<Callout type="info">
+  TODO: circuit will be added
+</Callout>
+
+## S4 Motor drivers [#s4-motor-drivers]
+
+Converts the (F, A) decision into two 1 kHz PWM signals on the motor-control connections; cradle supplies motor power.
+
+Status: In design
+
+
+# Milestones (/timeline)
+
+
+
+| Date         | Milestone                                              | Status   |
+| ------------ | ------------------------------------------------------ | -------- |
+| 17 Sep       | Section 1 final: requirements & architecture, reviewed | ✅ Done   |
+| 12 Oct 23:59 | P\&PD writing skills assignment (S1+S2 narrative)      | Upcoming |
+| 15 Oct       | Demo 1 (digital twin)                                  | Upcoming |
+| 15 Oct 12:30 | Section 2 final: communication protocol                | Upcoming |
+| 16 Oct 23:59 | P\&PD peer review (midterm)                            | Upcoming |
+| 3 Dec        | Demo 2                                                 | Upcoming |
+| 10 Dec       | Section 3 final                                        | Upcoming |
+| 14 Jan 2027  | Sections 4+5 + final demo                              | Upcoming |

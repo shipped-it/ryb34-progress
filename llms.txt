@@ -1,0 +1,7 @@
+# Rock Your Baby, Team 34
+
+- [Overview](/): Where we are with the design document
+- [Design document](/document): The latest version of our design document
+- [Submodules](/submodules): The four PYNQ Z2 boards and what each one does
+- [Open assumptions](/assumptions): The open points in the design, and when we close each one
+- [Milestones](/timeline): The course schedule, where we stand, and the version log of the document
