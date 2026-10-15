@@ -47,21 +47,21 @@ One shared data wire (SDA) and one clock wire (SCL) with a common ground. S3 act
 
 
 
-<Callout type="warn" title="Current version: Version 1.4 – Draft Section 2">
-  Section 2 not final
+<Callout type="success" title="Current version: Version 1.5 – Section 2 final">
+  Section 2 is final and matches the wiring built on the bench.
 </Callout>
 
 **RYB_Team34_DesignDocument.pdf**, 17 pages
 
-[Download the PDF](/RYB_Team34_DesignDocument.pdf)
+[Download the PDF](/ryb34-progress/RYB_Team34_DesignDocument.pdf)
 
-<iframe src="/RYB_Team34_DesignDocument.pdf" title="Rock Your Baby, Design Document v1.4" className="w-full" style="{ height: '820px', border: '1px solid #dcdad2', borderRadius: '6px' }" />
+<iframe src="/ryb34-progress/RYB_Team34_DesignDocument.pdf" title="Rock Your Baby, Design Document v1.5" className="w-full" style="{ height: '820px', border: '1px solid #dcdad2', borderRadius: '6px' }" />
 
 ## Versions [#versions]
 
-| Version | Status           |
-| ------- | ---------------- |
-| v1.4    | Sections 1 and 2 |
+| Version | Status                            |
+| ------- | --------------------------------- |
+| v1.5    | Sections 1 and 2, Section 2 final |
 
 
 # Overview (/)
@@ -78,8 +78,8 @@ A controller that reads a baby's heart rate and crying, decides a rocking motion
 | ------------ | ------------------- |
 | **Team**     | 34 · 9 members      |
 | **Board**    | PYNQ Z2 (Zynq-7020) |
-| **Document** | v1.4 · Sections 1+2 |
-| **Updated**  | 12 October 2026     |
+| **Document** | v1.5 · Sections 1+2 |
+| **Updated**  | 15 October 2026     |
 
 ## Status [#status]
 
@@ -154,9 +154,9 @@ Status: In design
 | Date         | Milestone                                              | Status   |
 | ------------ | ------------------------------------------------------ | -------- |
 | 17 Sep       | Section 1 final: requirements & architecture, reviewed | ✅ Done   |
-| 12 Oct 23:59 | P\&PD writing skills assignment (S1+S2 narrative)      | Upcoming |
-| 15 Oct       | Demo 1 (digital twin)                                  | Upcoming |
-| 15 Oct 12:30 | Section 2 final: communication protocol                | Upcoming |
+| 12 Oct 23:59 | P\&PD writing skills assignment (S1+S2 narrative)      | ✅ Done   |
+| 15 Oct       | Demo 1 (digital twin)                                  | ✅ Done   |
+| 15 Oct 12:30 | Section 2 final: communication protocol                | ✅ Done   |
 | 16 Oct 23:59 | P\&PD peer review (midterm)                            | Upcoming |
 | 3 Dec        | Demo 2                                                 | Upcoming |
 | 10 Dec       | Section 3 final                                        | Upcoming |
