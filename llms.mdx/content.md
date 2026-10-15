@@ -12,8 +12,8 @@ A controller that reads a baby's heart rate and crying, decides a rocking motion
 | ------------ | ------------------- |
 | **Team**     | 34 · 9 members      |
 | **Board**    | PYNQ Z2 (Zynq-7020) |
-| **Document** | v1.4 · Sections 1+2 |
-| **Updated**  | 12 October 2026     |
+| **Document** | v1.5 · Sections 1+2 |
+| **Updated**  | 15 October 2026     |
 
 ## Status [#status]
 
