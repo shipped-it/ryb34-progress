@@ -10,7 +10,7 @@
 
 **RYB_Team34_DesignDocument.pdf**, 17 pages
 
-[Download the PDF](/ryb34-progress/RYB_Team34_DesignDocument.pdf)
+[Download the PDF](/RYB_Team34_DesignDocument.pdf)
 
 <iframe src="/ryb34-progress/RYB_Team34_DesignDocument.pdf" title="Rock Your Baby, Design Document v1.5" className="w-full" style="{ height: '820px', border: '1px solid #dcdad2', borderRadius: '6px' }" />
 
